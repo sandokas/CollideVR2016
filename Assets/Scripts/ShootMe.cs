@@ -13,9 +13,7 @@ public class ShootMe : MonoBehaviour {
 
 	public float bananapower = 50f;
 	public float timeToReset = 5f;
-	public float defaultx = 0f;
-	public float defaulty = 1f;
-	public float defaultz = -18f;
+	public Vector3 defaultPosition = new Vector3(0f,1f,-18f);
 
 	//internal
 	private Camera cam; 
