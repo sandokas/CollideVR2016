@@ -14,6 +14,8 @@ public class ShootMe : MonoBehaviour {
 	public float bananapower = 50f;
 	public float timeToReset = 5f;
 	public Vector3 defaultPosition = new Vector3(0f,1f,-18f);
+	public float fakegravity = -25.0f;
+	public float fakeCannonKickEffect = 30.0f;
 
 	//internal
 	private Camera cam; 
@@ -74,7 +76,7 @@ public class ShootMe : MonoBehaviour {
 	}
 	private void Banana() {
 		Rigidbody rb =  GetComponent<Rigidbody>(); 
-		Vector3 force = new Vector3 (leaningTo.x * bananapower, 0, 0); 
+		Vector3 force = new Vector3 (leaningTo.x * bananapower, fakegravity, fakeCannonKickEffect); 
 		rb.AddRelativeForce (force);
 	}
 } 
