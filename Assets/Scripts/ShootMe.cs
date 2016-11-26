@@ -28,6 +28,12 @@ public class ShootMe : MonoBehaviour {
 	private bool isFlying = false;
 	private bool isPressed = false;
 
+	public void Reset() {
+		isFlying = false;
+		timeFlying = 0f;
+		power = 0f;
+	}
+
 	void Start() { 
 		cam = GameObject.Find("Main Camera").GetComponent<Camera>(); 
 	} 
@@ -58,13 +64,13 @@ public class ShootMe : MonoBehaviour {
 		} 
 
 		if (isFlying) {
-			if ( timeFlying < timeToReset)  //ATENÇÃO: isFlying deverá ser eliminado pelo collider e remover timeFlying < timeToReset
+			if ( timeFlying < timeToReset)  //
 			{
 				Banana ();
 				timeFlying += Time.deltaTime;
 			} else {
-				isFlying = false;
-				timeFlying = 0f;
+				//Nao e preciso fazer reset porque vai ser chamado na Coroutine
+				StartCoroutine(GetComponent<BallCollider>().RespawnBall(3));
 			}
 		}
 		isPressed = false;
