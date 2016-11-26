@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Goalkeeper : MonoBehaviour {
+	public GameObject ballPrefab;
+
 	public float width = 10f;
 	public float height = 5f;
 	private bool movingRight = true;
