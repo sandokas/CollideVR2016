@@ -3,6 +3,10 @@ using System.Collections;
 
 public class BallCollider : MonoBehaviour {
 	public Score scorePrefab;
+
+	public AudioClip goalSound;
+	public AudioClip failSound;
+
 	bool collided = false;
 	// Use this for initialization
 	void Start () {
@@ -28,6 +32,7 @@ public class BallCollider : MonoBehaviour {
 		if(collider.gameObject.CompareTag("GoalTrigger") && collided == false){
 			collided = true;
 			Debug.Log("Goal!");
+			AudioSource.PlayClipAtPoint(goalSound,Camera.main.transform.position);
 			scorePrefab.playerScore += 1;
 			StartCoroutine(RespawnBall(3));
 			return;
@@ -39,6 +44,7 @@ public class BallCollider : MonoBehaviour {
 		   && collided == false){
 			collided = true;
 			Debug.Log("Out!");
+			AudioSource.PlayClipAtPoint(failSound,Camera.main.transform.position);
 			scorePrefab.goalkeeperScore += 1;
 			StartCoroutine(RespawnBall(3));
 			return;

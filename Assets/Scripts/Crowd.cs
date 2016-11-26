@@ -9,12 +9,22 @@ public class Crowd : MonoBehaviour {
 	public Sprite crowd4;
 	public Sprite crowd5;
 	public Sprite crowd6;
-	public Sprite crowd7;
 
 	// Use this for initialization
 	void Start () {
+		ChooseSprite();
+
+		//make crowd look at the center of the pitch
+		transform.LookAt(new Vector3(0,0,-11), Vector3.up);
+
+		InvokeRepeating("ChooseSprite", 0.2f, 0.2f);
+
+	}
+
+
+	void ChooseSprite(){
 		//choose randomly one of the crowd sprites
-		int rand = Random.Range(0, 7);
+		int rand = Random.Range(0, 6);
 		switch(rand){
 		case 0: 
 			gameObject.GetComponent<SpriteRenderer>().sprite = crowd0;
@@ -37,19 +47,13 @@ public class Crowd : MonoBehaviour {
 		case 6: 
 			gameObject.GetComponent<SpriteRenderer>().sprite = crowd6;
 			break;
-		case 7: 
-			gameObject.GetComponent<SpriteRenderer>().sprite = crowd7;
-			break;
 		default:
 			break;
 		}
-
-		//make crowd look at the center of the pitch
-		transform.LookAt(new Vector3(0,0,-11), Vector3.up);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

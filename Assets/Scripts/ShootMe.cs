@@ -2,6 +2,12 @@
 using System.Collections; 
 
 public class ShootMe : MonoBehaviour { 
+	public AudioClip shootSound;
+	public AudioClip stepSound1;
+	public AudioClip stepSound2;
+	//bool stepsound1played = false;
+	//bool stepsound2played = false;
+
 	//fix ball
 	public float speed = 5; 
 	public float powermax = 5000; 
@@ -51,6 +57,11 @@ public class ShootMe : MonoBehaviour {
 		}
 		if (isPressed && lerpAmt < 1 && !isFlying)                // and lerpAmt is not already at max 
 		{ 
+			/*if(!stepsound1played){
+				Debug.Log("Step 1");
+				AudioSource.PlayClipAtPoint(stepSound1,Camera.main.transform.position);
+				stepsound1played = true;
+			}*/
 			isBuildUp = true;
 			lerpAmt += Time.deltaTime / timeToBuildUp; 
 			//power = Mathf.Lerp ( powermin, powermax, lerpAmt*speed ); 
@@ -61,6 +72,11 @@ public class ShootMe : MonoBehaviour {
 		} 
 
 		if (!isPressed && isBuildUp &&!isFlying) {
+			/*if(!stepsound2played){
+				Debug.Log("Step 2");
+				AudioSource.PlayClipAtPoint(stepSound2,Camera.main.transform.position);
+				stepsound2played = true;
+			}*/
 			timeSinceLastPress += Time.deltaTime;
 		}
 		if (!isPressed && isBuildUp && timeSinceLastPress > timeLagMax && !isFlying) 
@@ -85,6 +101,8 @@ public class ShootMe : MonoBehaviour {
 		isPressed = false;
 	} 
 	private void Shoot() {
+		Debug.Log("Shoot!");
+		AudioSource.PlayClipAtPoint(shootSound,Camera.main.transform.position);
 		Rigidbody rb =  GetComponent<Rigidbody>(); 
 		Vector3 force = new Vector3 (pointingTo.x * power, pointingTo.y * y_emphasis * power, pointingTo.z * power); 
 		rb.AddForce (force);
