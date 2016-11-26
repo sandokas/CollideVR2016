@@ -28,12 +28,6 @@ public class ShootMe : MonoBehaviour {
 	private bool isFlying = false;
 	private bool isPressed = false;
 
-	public bool IsFlying {
-		get {
-			return isFlying;
-		}
-	}
-
 	public void Reset() {
 		isFlying = false;
 		timeFlying = 0f;

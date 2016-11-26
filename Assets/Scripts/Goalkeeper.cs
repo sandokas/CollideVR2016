@@ -6,7 +6,6 @@ public class Goalkeeper : MonoBehaviour {
 
 	public float width = 10f;
 	public float height = 5f;
-	public float delayReflexes = 0.5f;
 	private bool movingRight = true;
 	
 	public float speed = 15.0f;
@@ -24,14 +23,6 @@ public class Goalkeeper : MonoBehaviour {
 		//Make Goalkeeper look at the Player all the time
 		transform.LookAt(Camera.main.transform.position, Vector3.up);
 
-		if (ballPrefab.GetComponent<ShootMe> ().IsFlying) {
-			StartCoroutine (JumpToBall(delayReflexes));
-		} else {
-			IdleMovement ();
-		}
-
-	}
-	void IdleMovement () {
 		//Handle Goalkeeper movement
 		if (movingRight)
 		{
@@ -40,7 +31,7 @@ public class Goalkeeper : MonoBehaviour {
 		else {
 			transform.position += Vector3.left * speed * Time.deltaTime;
 		}
-
+		
 		float rightEdgeOfFormation = transform.position.x + (0.5f * width);
 		float leftEdgeOfFormation = transform.position.x - (0.5f * width);
 		if (leftEdgeOfFormation < xmin)
@@ -50,16 +41,6 @@ public class Goalkeeper : MonoBehaviour {
 		else if (rightEdgeOfFormation > xmax)
 		{
 			movingRight = false;
-		}
-	}
-	IEnumerator JumpToBall(float waitForSeconds) {
-		yield return new WaitForSeconds (waitForSeconds);
-		if (transform.position.x - ballPrefab.transform.position.x < 0 ) {
-			if (xmax > transform.position.x)
-				transform.position += Vector3.right * speed * 2 * Time.deltaTime;
-		} else {
-			if (xmin < transform.position.x)
-				transform.position += Vector3.left * speed * 2 *Time.deltaTime;
 		}
 	}
 }
