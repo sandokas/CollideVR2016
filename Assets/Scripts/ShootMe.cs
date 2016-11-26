@@ -11,39 +11,72 @@ public class ShootMe : MonoBehaviour {
 	public float timeLagMax = 1f;
 	public float y_emphasis = 2f;
 
+	public float bananapower = 50f;
+	public float timeToReset = 5f;
+	public float defaultx = 0f;
+	public float defaulty = 1f;
+	public float defaultz = -18f;
+
 	//internal
 	private Camera cam; 
+	private Vector3 pointingTo;
+	private Vector3 leaningTo;
 	private float power = 0; 
 	private float timeSinceLastPress = 0f;
+	private float timeFlying = 0f;
 	private bool isBuildUp = false;
+	private bool isFlying = false;
+	private bool isPressed = false;
 
 	void Start() { 
 		cam = GameObject.Find("Main Camera").GetComponent<Camera>(); 
 	} 
 	void  Update() 
 	{ 
-
-		if (GvrViewer.Instance.VRModeEnabled && GvrViewer.Instance.Triggered && lerpAmt < 1 )                // and lerpAmt is not already at max 
+		if (GvrController.TouchDown || (Input.touchCount > 0) || GvrViewer.Instance.Triggered || Input.GetMouseButtonDown(0)) {
+			isPressed = true;
+		}
+		if (isPressed && lerpAmt < 1 && !isFlying)                // and lerpAmt is not already at max 
 		{ 
 			isBuildUp = true;
 			lerpAmt += Time.deltaTime / timeToBuildUp; 
 			power = Mathf.Lerp ( powermin, powermax, lerpAmt*speed ); 
 			timeSinceLastPress = 0;
+			pointingTo = new Vector3 (cam.transform.forward.x,cam.transform.forward.y,cam.transform.forward.z);
 		} 
-		if (GvrViewer.Instance.VRModeEnabled && !GvrViewer.Instance.Triggered && isBuildUp) {
+
+		if (!isPressed && isBuildUp &&!isFlying) {
 			timeSinceLastPress += Time.deltaTime;
 		}
-		if ( GvrViewer.Instance.VRModeEnabled && !GvrViewer.Instance.Triggered && isBuildUp && timeSinceLastPress > timeLagMax) 
+		if (!isPressed && isBuildUp && timeSinceLastPress > timeLagMax && !isFlying) 
 		{ 
 			Shoot ();
+			leaningTo = new Vector3 (cam.transform.forward.x,cam.transform.forward.y,cam.transform.forward.z);
 			isBuildUp = false;
+			isFlying = true;
 			timeSinceLastPress = 0f;
 		} 
 
+		if (isFlying) {
+			if ( timeFlying < timeToReset)  //ATENÇÃO: isFlying deverá ser eliminado pelo collider e remover timeFlying < timeToReset
+			{
+				Banana ();
+				timeFlying += Time.deltaTime;
+			} else {
+				isFlying = false;
+				timeFlying = 0f;
+			}
+		}
+		isPressed = false;
 	} 
 	private void Shoot() {
 		Rigidbody rb =  GetComponent<Rigidbody>(); 
-		Vector3 force = new Vector3 (cam.transform.forward.x * power, cam.transform.forward.y * y_emphasis * power, cam.transform.forward.z * power); 
+		Vector3 force = new Vector3 (pointingTo.x * power, pointingTo.y * y_emphasis * power, pointingTo.z * power); 
 		rb.AddForce (force);
+	}
+	private void Banana() {
+		Rigidbody rb =  GetComponent<Rigidbody>(); 
+		Vector3 force = new Vector3 (leaningTo.x * bananapower, 0, 0); 
+		rb.AddRelativeForce (force);
 	}
 } 
