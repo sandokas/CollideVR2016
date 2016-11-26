@@ -14,8 +14,8 @@ public class ShootMe : MonoBehaviour {
 	public float bananapower = 50f;
 	public float timeToReset = 5f;
 	public Vector3 defaultPosition = new Vector3(0f,1f,-18f);
-	public float fakegravity = -25.0f;
-	public float fakeCannonKickEffect = 30.0f;
+	public float fakegravity = 0.0f;
+	public float fakeCannonKickEffect = 0.0f;
 
 	//internal
 	private Camera cam; 
@@ -32,6 +32,7 @@ public class ShootMe : MonoBehaviour {
 		isFlying = false;
 		timeFlying = 0f;
 		power = 0f;
+		lerpAmt = 0f;
 	}
 
 	void Start() { 
