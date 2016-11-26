@@ -979,6 +979,196 @@ ModelImporter:
     4300374: Disc.1
     4300376: Plane
     4300378: Disc
+    6400000: Cap 1
+    6400002: Cap 1.10
+    6400004: Cap 1.11
+    6400006: Cap 1.12
+    6400008: Cap 1.13
+    6400010: Cap 1.14
+    6400012: Cap 1.15
+    6400014: Cap 1.16
+    6400016: Cap 1.17
+    6400018: Cap 1.18
+    6400020: Cap 1.19
+    6400022: Cap 1.2
+    6400024: Cap 1.20
+    6400026: Cap 1.21
+    6400028: Cap 1.22
+    6400030: Cap 1.23
+    6400032: Cap 1.24
+    6400034: Cap 1.25
+    6400036: Cap 1.26
+    6400038: Cap 1.27
+    6400040: Cap 1.28
+    6400042: Cap 1.29
+    6400044: Cap 1.3
+    6400046: Cap 1.30
+    6400048: Cap 1.31
+    6400050: Cap 1.32
+    6400052: Cap 1.33
+    6400054: Cap 1.34
+    6400056: Cap 1.35
+    6400058: Cap 1.36
+    6400060: Cap 1.37
+    6400062: Cap 1.38
+    6400064: Cap 1.39
+    6400066: Cap 1.4
+    6400068: Cap 1.40
+    6400070: Cap 1.41
+    6400072: Cap 1.42
+    6400074: Cap 1.43
+    6400076: Cap 1.44
+    6400078: Cap 1.45
+    6400080: Cap 1.46
+    6400082: Cap 1.47
+    6400084: Cap 1.48
+    6400086: Cap 1.49
+    6400088: Cap 1.5
+    6400090: Cap 1.50
+    6400092: Cap 1.51
+    6400094: Cap 1.52
+    6400096: Cap 1.53
+    6400098: Cap 1.54
+    6400100: Cap 1.55
+    6400102: Cap 1.56
+    6400104: Cap 1.6
+    6400106: Cap 1.7
+    6400108: Cap 1.8
+    6400110: Cap 1.9
+    6400112: Cap 2
+    6400114: Cap 2.10
+    6400116: Cap 2.11
+    6400118: Cap 2.12
+    6400120: Cap 2.13
+    6400122: Cap 2.14
+    6400124: Cap 2.15
+    6400126: Cap 2.16
+    6400128: Cap 2.17
+    6400130: Cap 2.18
+    6400132: Cap 2.19
+    6400134: Cap 2.2
+    6400136: Cap 2.20
+    6400138: Cap 2.21
+    6400140: Cap 2.22
+    6400142: Cap 2.23
+    6400144: Cap 2.24
+    6400146: Cap 2.25
+    6400148: Cap 2.26
+    6400150: Cap 2.27
+    6400152: Cap 2.28
+    6400154: Cap 2.29
+    6400156: Cap 2.3
+    6400158: Cap 2.30
+    6400160: Cap 2.31
+    6400162: Cap 2.32
+    6400164: Cap 2.33
+    6400166: Cap 2.34
+    6400168: Cap 2.35
+    6400170: Cap 2.36
+    6400172: Cap 2.37
+    6400174: Cap 2.38
+    6400176: Cap 2.39
+    6400178: Cap 2.4
+    6400180: Cap 2.40
+    6400182: Cap 2.41
+    6400184: Cap 2.42
+    6400186: Cap 2.43
+    6400188: Cap 2.44
+    6400190: Cap 2.45
+    6400192: Cap 2.46
+    6400194: Cap 2.47
+    6400196: Cap 2.48
+    6400198: Cap 2.49
+    6400200: Cap 2.5
+    6400202: Cap 2.50
+    6400204: Cap 2.51
+    6400206: Cap 2.52
+    6400208: Cap 2.53
+    6400210: Cap 2.54
+    6400212: Cap 2.55
+    6400214: Cap 2.56
+    6400216: Cap 2.6
+    6400218: Cap 2.7
+    6400220: Cap 2.8
+    6400222: Cap 2.9
+    6400224: Cube
+    6400226: Cylinder
+    6400228: Cylinder.1
+    6400230: Cylinder.2
+    6400232: Cylinder.3
+    6400234: Disc
+    6400236: Disc.1
+    6400238: Disc.2
+    6400240: Disc.3
+    6400242: Loft NURBS.1 0
+    6400244: Loft NURBS.1 0.2
+    6400246: Loft NURBS.1 0.3
+    6400248: Loft NURBS.1 0.4
+    6400250: Loft NURBS.1 1
+    6400252: Loft NURBS.1 1.2
+    6400254: Loft NURBS.1 1.3
+    6400256: Loft NURBS.1 1.4
+    6400258: Loft NURBS.1 10
+    6400260: Loft NURBS.1 10.2
+    6400262: Loft NURBS.1 10.3
+    6400264: Loft NURBS.1 10.4
+    6400266: Loft NURBS.1 11
+    6400268: Loft NURBS.1 11.2
+    6400270: Loft NURBS.1 11.3
+    6400272: Loft NURBS.1 11.4
+    6400274: Loft NURBS.1 12
+    6400276: Loft NURBS.1 12.2
+    6400278: Loft NURBS.1 12.3
+    6400280: Loft NURBS.1 12.4
+    6400282: Loft NURBS.1 13
+    6400284: Loft NURBS.1 13.2
+    6400286: Loft NURBS.1 13.3
+    6400288: Loft NURBS.1 13.4
+    6400290: Loft NURBS.1 14
+    6400292: Loft NURBS.1 14.2
+    6400294: Loft NURBS.1 14.3
+    6400296: Loft NURBS.1 14.4
+    6400298: Loft NURBS.1 15
+    6400300: Loft NURBS.1 15.2
+    6400302: Loft NURBS.1 15.3
+    6400304: Loft NURBS.1 15.4
+    6400306: Loft NURBS.1 2
+    6400308: Loft NURBS.1 2.2
+    6400310: Loft NURBS.1 2.3
+    6400312: Loft NURBS.1 2.4
+    6400314: Loft NURBS.1 3
+    6400316: Loft NURBS.1 3.2
+    6400318: Loft NURBS.1 3.3
+    6400320: Loft NURBS.1 3.4
+    6400322: Loft NURBS.1 4
+    6400324: Loft NURBS.1 4.2
+    6400326: Loft NURBS.1 4.3
+    6400328: Loft NURBS.1 4.4
+    6400330: Loft NURBS.1 5
+    6400332: Loft NURBS.1 5.2
+    6400334: Loft NURBS.1 5.3
+    6400336: Loft NURBS.1 5.4
+    6400338: Loft NURBS.1 6
+    6400340: Loft NURBS.1 6.2
+    6400342: Loft NURBS.1 6.3
+    6400344: Loft NURBS.1 6.4
+    6400346: Loft NURBS.1 7
+    6400348: Loft NURBS.1 7.2
+    6400350: Loft NURBS.1 7.3
+    6400352: Loft NURBS.1 7.4
+    6400354: Loft NURBS.1 8
+    6400356: Loft NURBS.1 8.2
+    6400358: Loft NURBS.1 8.3
+    6400360: Loft NURBS.1 8.4
+    6400362: Loft NURBS.1 9
+    6400364: Loft NURBS.1 9.2
+    6400366: Loft NURBS.1 9.3
+    6400368: Loft NURBS.1 9.4
+    6400370: Plane
+    6400372: Sweep NURBS
+    6400374: Sweep NURBS.1
+    6400376: Sweep NURBS.2
+    6400378: Sweep NURBS.3
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -1006,7 +1196,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
