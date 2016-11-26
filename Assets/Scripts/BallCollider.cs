@@ -22,7 +22,7 @@ public class BallCollider : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if(collision.gameObject.CompareTag("StadiumTrigger")){
+		if(collision.gameObject.CompareTag("StadiumTrigger") || collision.gameObject.CompareTag("GoalkeeperTrigger")){
 			Debug.Log("Out!");
 			scorePrefab.goalkeeperScore += 1;
 			return;
