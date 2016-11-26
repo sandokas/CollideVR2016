@@ -53,7 +53,9 @@ public class ShootMe : MonoBehaviour {
 		{ 
 			isBuildUp = true;
 			lerpAmt += Time.deltaTime / timeToBuildUp; 
-			power = Mathf.Lerp ( powermin, powermax, lerpAmt*speed ); 
+			//power = Mathf.Lerp ( powermin, powermax, lerpAmt*speed ); 
+			if (power< powermax)
+				power += powermin;
 			timeSinceLastPress = 0;
 			pointingTo = new Vector3 (cam.transform.forward.x,cam.transform.forward.y,cam.transform.forward.z);
 		} 
