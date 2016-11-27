@@ -89,7 +89,7 @@ public class Goalkeeper : MonoBehaviour {
 			float diffx = ballPrefab.transform.position.x - transform.position.x;
 			//if (Mathf.Abs (diffx) > 1) {
 			if (chosenSide == Side.NotPicked) {
-				if (Mathf.Abs (diffx) < 0.5f) {
+				if (Mathf.Abs (diffx) < 0.7f) {
 					chosenSide = Side.Middle;
 				} else if (diffx < 0) {
 					chosenSide = Side.Left;
