@@ -89,7 +89,7 @@ public class Goalkeeper : MonoBehaviour {
 			float diffx = ballPrefab.transform.position.x - transform.position.x;
 			//if (Mathf.Abs (diffx) > 1) {
 			if (chosenSide == Side.NotPicked) {
-				if (Mathf.Abs (diffx) < 1) {
+				if (Mathf.Abs (diffx) < 0.5f) {
 					chosenSide = Side.Middle;
 				} else if (diffx < 0) {
 					chosenSide = Side.Left;
@@ -99,7 +99,7 @@ public class Goalkeeper : MonoBehaviour {
 			}
 			if (chosenSide == Side.Left) {
 				if (xmin < transform.position.x) {
-					transform.position += Vector3.left * speed * 2.5f * Time.deltaTime;
+					transform.position += Vector3.left * speed * 3f * Time.deltaTime;
 					//if (transform.eulerAngles.x <= -90) {
 					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, -90 * Time.deltaTime));
 					mySpriteRenderer.sprite = gk_jumpright;
@@ -110,7 +110,7 @@ public class Goalkeeper : MonoBehaviour {
 				}
 			} else if (chosenSide == Side.Right) {
 				if (xmax > transform.position.x) {
-					transform.position += Vector3.right * speed * 2.5f * Time.deltaTime;
+					transform.position += Vector3.right * speed * 3f * Time.deltaTime;
 					//if (transform.eulerAngles.x >= 90) 
 					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, 90 * Time.deltaTime));
 					mySpriteRenderer.sprite = gk_jumpleft;
@@ -120,7 +120,13 @@ public class Goalkeeper : MonoBehaviour {
 					transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
 				}
 			} else {
-				mySpriteRenderer.sprite = gk_leaningleft;
+                if (diffx < 0) { 
+                    transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
+                } else
+                {
+                    transform.position += Vector3.right * speed * 1.5f * Time.deltaTime;
+                }
+                mySpriteRenderer.sprite = gk_leaningleft;
 			}
 		}
 //		} else {
