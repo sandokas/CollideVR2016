@@ -13,7 +13,7 @@ public class Score : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         TextMesh scoreText = gameObject.GetComponent<TextMesh>();
-        scoreText.text = playerScore.ToString() + "-" + goalkeeperScore.ToString();
+        scoreText.text = "Home " + playerScore.ToString() + "-" + goalkeeperScore.ToString() + " Away";
 
     }
 }
