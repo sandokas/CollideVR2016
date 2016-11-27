@@ -94,8 +94,7 @@ public class ShootMe : MonoBehaviour {
 				Banana ();
 				timeFlying += Time.deltaTime;
 			} else {
-				//Nao e preciso fazer reset porque vai ser chamado na Coroutine
-				StartCoroutine(GetComponent<BallCollider>().RespawnBall(3));
+				GetComponent<BallCollider>().Defeat();
 			}
 		}
 		isPressed = false;

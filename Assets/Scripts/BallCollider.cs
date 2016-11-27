@@ -32,7 +32,7 @@ public class BallCollider : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator RespawnBall(float time){
+	private IEnumerator RespawnBall(float time){
 		GetComponent<ShootMe>().Reset();
 		yield return new WaitForSeconds(time);
 		transform.position = GetComponent<ShootMe>().defaultPosition;
@@ -54,14 +54,14 @@ public class BallCollider : MonoBehaviour {
 			gk_touchedIt = true;
 		}
 	}
-	void Defeat () {
+	public void Defeat () {
 		collided = true;
 		isVictory = false;
 		AudioSource.PlayClipAtPoint (failSound, Camera.main.transform.position);
 		scorePrefab.goalkeeperScore += 1;
 		StartCoroutine (RespawnBall (3));
 	}
-	void Victory() {
+	public void Victory() {
 		collided = true;
 		isVictory = true;
 		AudioSource.PlayClipAtPoint(goalSound,Camera.main.transform.position);
