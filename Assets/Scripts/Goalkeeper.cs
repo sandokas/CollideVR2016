@@ -22,7 +22,9 @@ public class Goalkeeper : MonoBehaviour {
 	public float speed = 15.0f;
 
 	float xmin = -3f;
-	float xmax = 3;
+	float xmax = 3f;
+	float xforIdlemin = -1.5f;
+	float xforIdlemax = 1.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -64,11 +66,11 @@ public class Goalkeeper : MonoBehaviour {
 
 		float rightEdgeOfFormation = transform.position.x + (0.5f * width);
 		float leftEdgeOfFormation = transform.position.x - (0.5f * width);
-		if (leftEdgeOfFormation < xmin)
+		if (leftEdgeOfFormation < xforIdlemin)
 		{
 			movingRight = true;
 		}
-		else if (rightEdgeOfFormation > xmax)
+		else if (rightEdgeOfFormation > xforIdlemax)
 		{
 			movingRight = false;
 		}
@@ -101,6 +103,8 @@ public class Goalkeeper : MonoBehaviour {
 					mySpriteRenderer.sprite = gk_jumpleft;
 				} else {
 					transform.position = new Vector3 (xmax, transform.position.y, transform.position.z);
+					transform.FindChild ("GoalKeeper").transform.rotation = Quaternion.identity;
+					transform.FindChild ("GoalKeeper").transform.position = Vector3.zero;
 				}
 			} else if (chosenSide == Side.Right) {
 				if (xmin < transform.position.x) {
@@ -110,6 +114,8 @@ public class Goalkeeper : MonoBehaviour {
 					mySpriteRenderer.sprite = gk_jumpright;
 				} else {
 					transform.position = new Vector3 (xmin, transform.position.y, transform.position.z);
+					transform.FindChild ("GoalKeeper").transform.rotation = Quaternion.identity;
+					transform.FindChild ("GoalKeeper").transform.position = Vector3.zero;
 				}
 			} else {
 				mySpriteRenderer.sprite = gk_leaningleft;
