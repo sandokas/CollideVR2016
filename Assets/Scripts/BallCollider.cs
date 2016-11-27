@@ -6,8 +6,12 @@ public class BallCollider : MonoBehaviour {
 
 	public AudioClip goalSound;
 	public AudioClip failSound;
+	public bool gk_touchedIt = false;
+	private float timeTouchedIt = 0f;
+	public bool isGame = true;
+	public bool isVictory = true;
 
-	bool collided = false;
+	public bool collided = false;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,7 +19,17 @@ public class BallCollider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (gk_touchedIt) {
+			timeTouchedIt += Time.deltaTime;
+			if (timeTouchedIt > 1f) {
+				Defeat ();
+				timeTouchedIt = 0f;
+				gk_touchedIt = false;
+			}
+		}
+		if (transform.position.z >= -4f && !collided) {
+			Defeat ();
+		}
 	}
 
 	public IEnumerator RespawnBall(float time){
@@ -30,24 +44,28 @@ public class BallCollider : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider){
 		if(collider.gameObject.CompareTag("GoalTrigger") && collided == false){
-			collided = true;
-			Debug.Log("Goal!");
-			AudioSource.PlayClipAtPoint(goalSound,Camera.main.transform.position);
-			scorePrefab.playerScore += 1;
-			StartCoroutine(RespawnBall(3));
-			return;
+			Victory ();
 		}
 	}
 
 	void OnCollisionEnter(Collision collision){
 		if((collision.gameObject.CompareTag("StadiumTrigger") || collision.gameObject.CompareTag("GoalkeeperTrigger")) 
 		   && collided == false){
-			collided = true;
-			Debug.Log("Out!");
-			AudioSource.PlayClipAtPoint(failSound,Camera.main.transform.position);
-			scorePrefab.goalkeeperScore += 1;
-			StartCoroutine(RespawnBall(3));
-			return;
+			gk_touchedIt = true;
 		}
+	}
+	void Defeat () {
+		collided = true;
+		isVictory = false;
+		AudioSource.PlayClipAtPoint (failSound, Camera.main.transform.position);
+		scorePrefab.goalkeeperScore += 1;
+		StartCoroutine (RespawnBall (3));
+	}
+	void Victory() {
+		collided = true;
+		isVictory = true;
+		AudioSource.PlayClipAtPoint(goalSound,Camera.main.transform.position);
+		scorePrefab.playerScore += 1;
+		StartCoroutine(RespawnBall(3));
 	}
 }

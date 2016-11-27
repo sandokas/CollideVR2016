@@ -3,6 +3,17 @@ using System.Collections;
 
 public class Goalkeeper : MonoBehaviour {
 	public GameObject ballPrefab;
+	public Sprite gk_readyleft;
+	public Sprite gk_readyright;
+	public Sprite gk_jumpleft;
+	public Sprite gk_jumpright;
+	public Sprite gk_leaningleft;
+	public Sprite gk_leaningright;
+	public Sprite gk_victory;
+	public Sprite gk_defeat;
+	public enum Gk_state {Victory, Defeat, Idle, Jumping};
+	public Gk_state current_state;
+
 
 	public float width = 10f;
 	public float height = 5f;
@@ -16,20 +27,26 @@ public class Goalkeeper : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		current_state = Gk_state.Idle;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		//Make Goalkeeper look at the Player all the time
-		transform.LookAt(Camera.main.transform.position, Vector3.up);
+		transform.LookAt (Camera.main.transform.position, Vector3.up);
 
+		//If the Ball is on it's way I should be Jumping!
 		if (ballPrefab.GetComponent<ShootMe> ().IsFlying) {
-			StartCoroutine (JumpToBall(delayReflexes));
-		} else {
+			StartCoroutine (JumpToBall (delayReflexes));
+		} else if (ballPrefab.GetComponent<BallCollider> ().collided) {
+			if (ballPrefab.GetComponent<BallCollider> ().isVictory) {
+				gameObject.GetComponent<SpriteRenderer>().sprite = gk_defeat;
+			} else {
+				gameObject.GetComponent<SpriteRenderer>().sprite = gk_victory;
+			}
+		} else { 
 			IdleMovement ();
 		}
-
 	}
 	void IdleMovement () {
 		//Handle Goalkeeper movement
@@ -51,15 +68,25 @@ public class Goalkeeper : MonoBehaviour {
 		{
 			movingRight = false;
 		}
+		//Sprites
+		if (transform.position.x > 0) {
+			gameObject.GetComponent<SpriteRenderer>().sprite = gk_readyright;
+		} else {
+			gameObject.GetComponent<SpriteRenderer> ().sprite = gk_readyleft;
+		}
 	}
 	IEnumerator JumpToBall(float waitForSeconds) {
 		yield return new WaitForSeconds (waitForSeconds);
 		if (transform.position.x - ballPrefab.transform.position.x < 0 ) {
-			if (xmax > transform.position.x)
+			if (xmax > transform.position.x) {
 				transform.position += Vector3.right * speed * 2 * Time.deltaTime;
+				gameObject.GetComponent<SpriteRenderer>().sprite = gk_jumpleft;
+			}
 		} else {
-			if (xmin < transform.position.x)
-				transform.position += Vector3.left * speed * 2 *Time.deltaTime;
+			if (xmin < transform.position.x) {
+				transform.position += Vector3.left * speed * 2 * Time.deltaTime;
+				gameObject.GetComponent<SpriteRenderer>().sprite = gk_jumpright;
+			}
 		}
 	}
 }
