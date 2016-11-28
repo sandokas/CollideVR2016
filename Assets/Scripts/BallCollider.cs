@@ -23,7 +23,8 @@ public class BallCollider : MonoBehaviour {
 		if (gk_touchedIt) {
 			timeTouchedIt += Time.deltaTime;
 			if (timeTouchedIt > 1f) {
-				Defeat ();
+                if (!collided)
+				    Defeat ();
 				timeTouchedIt = 0f;
 				gk_touchedIt = false;
 			}

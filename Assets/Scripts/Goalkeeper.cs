@@ -104,7 +104,7 @@ public class Goalkeeper : MonoBehaviour {
 					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, -90 * Time.deltaTime));
 					mySpriteRenderer.sprite = gk_jumpright;
 				} else {
-					transform.position = new Vector3 (xmax, transform.position.y, transform.position.z);
+					transform.position = new Vector3 (xmin, transform.position.y, transform.position.z);
 					transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
 					transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
 				}
@@ -115,28 +115,21 @@ public class Goalkeeper : MonoBehaviour {
 					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, 90 * Time.deltaTime));
 					mySpriteRenderer.sprite = gk_jumpleft;
 				} else {
-					//transform.position = new Vector3 (xmin, transform.position.y, transform.position.z);
+					transform.position = new Vector3 (xmax, transform.position.y, transform.position.z);
 					transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
 					transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
 				}
 			} else {
-                if (diffx < 0) { 
-                    transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
+                if (diffx < 0) {
+                    if (xmin < transform.position.x)
+                        transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
                 } else
                 {
-                    transform.position += Vector3.right * speed * 1.5f * Time.deltaTime;
+                    if (xmax > transform.position.x)
+                        transform.position += Vector3.right * speed * 1.5f * Time.deltaTime;
                 }
                 mySpriteRenderer.sprite = gk_leaningleft;
 			}
 		}
-//		} else {
-//			if (diffx > 0) {
-//				transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
-//				mySpriteRenderer.sprite = gk_readyleft;
-//			} else {
-//				transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
-//				mySpriteRenderer.sprite = gk_readyright;
-//			}
-//		}
 	}
 }
