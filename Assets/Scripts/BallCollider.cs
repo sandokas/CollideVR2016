@@ -6,6 +6,7 @@ public class BallCollider : MonoBehaviour {
 
 	public AudioClip goalSound;
 	public AudioClip failSound;
+    public AudioClip catchSound;
 	public bool gk_touchedIt = false;
 	private float timeTouchedIt = 0f;
 	public bool isGame = true;
@@ -32,7 +33,7 @@ public class BallCollider : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator RespawnBall(float time){
+	private IEnumerator RespawnBall(float time){
 		GetComponent<ShootMe>().Reset();
 		yield return new WaitForSeconds(time);
 		transform.position = GetComponent<ShootMe>().defaultPosition;
@@ -52,16 +53,17 @@ public class BallCollider : MonoBehaviour {
 		if((collision.gameObject.CompareTag("StadiumTrigger") || collision.gameObject.CompareTag("GoalkeeperTrigger")) 
 		   && collided == false){
 			gk_touchedIt = true;
-		}
+            AudioSource.PlayClipAtPoint(catchSound, Camera.main.transform.position);
+        }
 	}
-	void Defeat () {
+	public void Defeat () {
 		collided = true;
 		isVictory = false;
 		AudioSource.PlayClipAtPoint (failSound, Camera.main.transform.position);
 		scorePrefab.goalkeeperScore += 1;
 		StartCoroutine (RespawnBall (3));
 	}
-	void Victory() {
+	public void Victory() {
 		collided = true;
 		isVictory = true;
 		AudioSource.PlayClipAtPoint(goalSound,Camera.main.transform.position);

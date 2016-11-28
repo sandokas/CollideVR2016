@@ -11,23 +11,26 @@ public class Goalkeeper : MonoBehaviour {
 	public Sprite gk_leaningright;
 	public Sprite gk_victory;
 	public Sprite gk_defeat;
-	public enum Gk_state {Victory, Defeat, Idle, Jumping};
-	public Gk_state current_state;
 
-
-	public float width = 10f;
-	public float height = 5f;
+	private SpriteRenderer mySpriteRenderer;
+	public float width = 1.78f;
+	public float height = 2.92f;
 	public float delayReflexes = 0.5f;
 	private bool movingRight = true;
-
+	private enum Side {Right, Left, Middle, NotPicked}
+	private Side chosenSide = Side.NotPicked;
 	public float speed = 15.0f;
 
 	float xmin = -3f;
-	float xmax = 3;
+	float xmax = 3f;
+	float xforIdlemin = -1.5f;
+	float xforIdlemax = 1.5f;
 
 	// Use this for initialization
 	void Start () {
-		current_state = Gk_state.Idle;
+		mySpriteRenderer = transform.Find ("GoalKeeper").gameObject.GetComponent<SpriteRenderer>();
+		transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
+		transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
 	}
 
 	// Update is called once per frame
@@ -35,14 +38,19 @@ public class Goalkeeper : MonoBehaviour {
 		//Make Goalkeeper look at the Player all the time
 		transform.LookAt (Camera.main.transform.position, Vector3.up);
 
+
+
 		//If the Ball is on it's way I should be Jumping!
 		if (ballPrefab.GetComponent<ShootMe> ().IsFlying) {
 			StartCoroutine (JumpToBall (delayReflexes));
 		} else if (ballPrefab.GetComponent<BallCollider> ().collided) {
+			transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
+			transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
+			chosenSide = Side.NotPicked;
 			if (ballPrefab.GetComponent<BallCollider> ().isVictory) {
-				gameObject.GetComponent<SpriteRenderer>().sprite = gk_defeat;
+				mySpriteRenderer.sprite = gk_defeat;
 			} else {
-				gameObject.GetComponent<SpriteRenderer>().sprite = gk_victory;
+				mySpriteRenderer.sprite = gk_victory;
 			}
 		} else { 
 			IdleMovement ();
@@ -60,33 +68,75 @@ public class Goalkeeper : MonoBehaviour {
 
 		float rightEdgeOfFormation = transform.position.x + (0.5f * width);
 		float leftEdgeOfFormation = transform.position.x - (0.5f * width);
-		if (leftEdgeOfFormation < xmin)
+		if (leftEdgeOfFormation < xforIdlemin)
 		{
 			movingRight = true;
 		}
-		else if (rightEdgeOfFormation > xmax)
+		else if (rightEdgeOfFormation > xforIdlemax)
 		{
 			movingRight = false;
 		}
 		//Sprites
 		if (transform.position.x > 0) {
-			gameObject.GetComponent<SpriteRenderer>().sprite = gk_readyright;
+			mySpriteRenderer.sprite = gk_readyright;
 		} else {
-			gameObject.GetComponent<SpriteRenderer> ().sprite = gk_readyleft;
+			mySpriteRenderer.sprite = gk_readyleft;
 		}
 	}
 	IEnumerator JumpToBall(float waitForSeconds) {
 		yield return new WaitForSeconds (waitForSeconds);
-		if (transform.position.x - ballPrefab.transform.position.x < 0 ) {
-			if (xmax > transform.position.x) {
-				transform.position += Vector3.right * speed * 2 * Time.deltaTime;
-				gameObject.GetComponent<SpriteRenderer>().sprite = gk_jumpleft;
+		if (!ballPrefab.GetComponent<BallCollider> ().collided) {
+			float diffx = ballPrefab.transform.position.x - transform.position.x;
+			//if (Mathf.Abs (diffx) > 1) {
+			if (chosenSide == Side.NotPicked) {
+				if (Mathf.Abs (diffx) < 0.7f) {
+					chosenSide = Side.Middle;
+				} else if (diffx < 0) {
+					chosenSide = Side.Left;
+				} else {
+					chosenSide = Side.Right;
+				}
 			}
-		} else {
-			if (xmin < transform.position.x) {
-				transform.position += Vector3.left * speed * 2 * Time.deltaTime;
-				gameObject.GetComponent<SpriteRenderer>().sprite = gk_jumpright;
+			if (chosenSide == Side.Left) {
+				if (xmin < transform.position.x) {
+					transform.position += Vector3.left * speed * 3f * Time.deltaTime;
+					//if (transform.eulerAngles.x <= -90) {
+					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, -90 * Time.deltaTime));
+					mySpriteRenderer.sprite = gk_jumpright;
+				} else {
+					transform.position = new Vector3 (xmax, transform.position.y, transform.position.z);
+					transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
+					transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
+				}
+			} else if (chosenSide == Side.Right) {
+				if (xmax > transform.position.x) {
+					transform.position += Vector3.right * speed * 3f * Time.deltaTime;
+					//if (transform.eulerAngles.x >= 90) 
+					transform.FindChild ("GoalKeeper").transform.Rotate (new Vector3 (0, 0, 90 * Time.deltaTime));
+					mySpriteRenderer.sprite = gk_jumpleft;
+				} else {
+					//transform.position = new Vector3 (xmin, transform.position.y, transform.position.z);
+					transform.FindChild ("GoalKeeper").transform.localRotation = Quaternion.identity;
+					transform.FindChild ("GoalKeeper").transform.localPosition = Vector3.zero;
+				}
+			} else {
+                if (diffx < 0) { 
+                    transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
+                } else
+                {
+                    transform.position += Vector3.right * speed * 1.5f * Time.deltaTime;
+                }
+                mySpriteRenderer.sprite = gk_leaningleft;
 			}
 		}
+//		} else {
+//			if (diffx > 0) {
+//				transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
+//				mySpriteRenderer.sprite = gk_readyleft;
+//			} else {
+//				transform.position += Vector3.left * speed * 1.5f * Time.deltaTime;
+//				mySpriteRenderer.sprite = gk_readyright;
+//			}
+//		}
 	}
 }

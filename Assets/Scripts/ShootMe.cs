@@ -5,6 +5,8 @@ public class ShootMe : MonoBehaviour {
 	public AudioClip shootSound;
 	public AudioClip stepSound1;
 	public AudioClip stepSound2;
+	public AudioClip stepSound3;
+	public AudioClip stepSound4;
 	//bool stepsound1played = false;
 	//bool stepsound2played = false;
 
@@ -57,11 +59,28 @@ public class ShootMe : MonoBehaviour {
 		}
 		if (isPressed && lerpAmt < 1 && !isFlying)                // and lerpAmt is not already at max 
 		{ 
-			/*if(!stepsound1played){
-				Debug.Log("Step 1");
-				AudioSource.PlayClipAtPoint(stepSound1,Camera.main.transform.position);
-				stepsound1played = true;
-			}*/
+			//if(!stepsound1played){
+				//Debug.Log("Step 1");
+
+			switch (Random.Range (1, 4)) {
+			case 1:
+				AudioSource.PlayClipAtPoint (stepSound1, Camera.main.transform.position);
+				break;
+			case 2:
+				AudioSource.PlayClipAtPoint (stepSound2, Camera.main.transform.position);
+				break;
+			case 3:
+				AudioSource.PlayClipAtPoint (stepSound3, Camera.main.transform.position);
+				break;
+			case 4:
+				AudioSource.PlayClipAtPoint (stepSound4, Camera.main.transform.position);
+				break;
+			default:
+				break;
+
+			}
+				//stepsound1played = true;
+			//}
 			isBuildUp = true;
 			lerpAmt += Time.deltaTime / timeToBuildUp; 
 			//power = Mathf.Lerp ( powermin, powermax, lerpAmt*speed ); 
@@ -94,8 +113,7 @@ public class ShootMe : MonoBehaviour {
 				Banana ();
 				timeFlying += Time.deltaTime;
 			} else {
-				//Nao e preciso fazer reset porque vai ser chamado na Coroutine
-				StartCoroutine(GetComponent<BallCollider>().RespawnBall(3));
+				GetComponent<BallCollider>().Defeat();
 			}
 		}
 		isPressed = false;
