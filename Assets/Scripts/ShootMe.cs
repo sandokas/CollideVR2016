@@ -53,10 +53,34 @@ public class ShootMe : MonoBehaviour {
 		cam = GameObject.Find("Main Camera").GetComponent<Camera>(); 
 	} 
 	void  Update() 
-	{ 
-		if (GvrController.TouchDown || (Input.touchCount > 0) || GvrViewer.Instance.Triggered || Input.GetMouseButtonDown(0)) {
-			isPressed = true;
-		}
+	{
+        // (not used currently)
+        //GvrController.TouchDown
+        // Due to GvrViewer.Instance.Triggered not working in my mobile
+
+        if ((Input.touchCount > 0)) {
+            foreach (Touch t in Input.touches) { 
+                if (t.phase == TouchPhase.Began) { 
+			        isPressed = true;
+                    Debug.Log("Input.touchCount "+ Input.touchCount);
+                }
+            }
+        }
+        
+        if (GvrViewer.Instance.Triggered)
+        {
+            isPressed = true;
+            Debug.Log("GvrViewer.Instance.Triggered");
+        }
+        
+        /*
+        if (Input.GetMouseButtonDown(0))
+        {
+            isPressed = true;
+            Debug.Log("Input.GetMouseButtonDown(0)");
+        }
+        */
+        
 		if (isPressed && lerpAmt < 1 && !isFlying)                // and lerpAmt is not already at max 
 		{ 
 			//if(!stepsound1played){
